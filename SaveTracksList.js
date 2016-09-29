@@ -1,3 +1,15 @@
+// main function - scrolls down until the end, and saves all the tracks
+var currentScrollTop = -1;
+var timerId = setInterval(function () {
+    if (document.body.scrollTop > currentScrollTop) {
+        currentScrollTop = document.body.scrollTop;
+        document.body.scrollTop = currentScrollTop + 9001;
+    } else {
+        clearInterval(timerId);
+        saveTracksList();
+    }
+}, 500);
+
 /**
  * Parses current VK music page, takes tracks, and saves as file
  */
@@ -31,6 +43,5 @@ function saveTracksAsFile(tracks, filename) {
     a.href = urlObj;
     a.click();
 
-    delete a;
     URL.revokeObjectURL(urlObj);
 }
